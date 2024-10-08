@@ -1,5 +1,5 @@
 
-package project;
+package Budgetaid;
 import java.util.*;
 
 public class BudgetAid {
@@ -82,7 +82,7 @@ class monthlyIncome{
        public void calculate_expense()
        {
            total_expenses= groceries +water_n_light+Travel_cost+cellphone_n_telephone+ other;
-           System.out.println("Your total amount for expenses  = R" +total_expenses);
+           System.out.println("\nYour total amount for expenses  = R" +total_expenses);
        
        } 
         
@@ -126,11 +126,11 @@ class monthlyIncome{
      
     class home_house extends expenses{
         
-      static  double total_expense_for_rent_n_expenses;
+        double total_expense_for_rent_n_expenses;
         double total_home_loan_payments;
-       static  double total_expenses_for_homeloan_n_expenses;
-       static double  money_left_after_expenses_n_property;
-        static  double money_left_after_expense_n_rent;
+         double total_expenses_for_homeloan_n_expenses;
+        double  money_left_after_expenses_n_property;
+          double money_left_after_expense_n_rent;
             double home_loan_repayments;
        Scanner me3= new Scanner(System.in);
             
@@ -198,9 +198,9 @@ class monthlyIncome{
     class vehicle extends   home_house {
      
     double vehicle_monthly_repayment;
-     static double total_expenses_including_vehicle_loan;
+      double total_expenses_including_vehicle_loan;
        double money_available_after_all_expenses;
-     static   double total_expenses_without_vehicle_loan;
+        double total_expenses_without_vehicle_loan;
       
 
      String choice2;
