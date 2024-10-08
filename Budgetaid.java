@@ -1,5 +1,5 @@
 
-package Budgetaid;
+package javaapplication31;
 import java.util.*;
 
 public class BudgetAid {
@@ -41,7 +41,8 @@ class monthlyIncome{
          gross_monthlyIncome=me5.nextDouble();
         System.out.println("Enter your tax deduction in percentage form(but in decimal  form):");
         float tax=me5.nextFloat();
-        income_left_after_tax_ded=gross_monthlyIncome-gross_monthlyIncome*tax;
+        income_left_after_tax_ded=gross_monthlyIncome-(gross_monthlyIncome*(tax/100));
+        System.out.print ("Income after tax:R "+ income_left_after_tax_ded );
     }
     //this method give access to the private  method income at top
     public void inherit(){
@@ -61,7 +62,7 @@ class monthlyIncome{
        
        public void expens(){
            //user inputs
-           System.out.println("Enter amount you spend on groceries:");
+           System.out.println("\nEnter amount you spend on groceries:");
             groceries=me5.nextDouble();
         
         System.out.println("Enter the amount you spend on water and electricity:");
@@ -93,10 +94,9 @@ class monthlyIncome{
            String expenses[] = {"groceries"," water  and electricity"," travel cost", " cellphone amd telephones", " other expenses"};
            
         total_expenses4.add(total_expenses); 
-                      
-        for (int i =0 ; i <me.length;i++){
-            
+           for(int i=0; i<me.length-1;i++){
             for(int j=0; j<me.length-1;j++){
+                
                 
                 if(me[j]< me[j+1]){
                     
@@ -107,13 +107,13 @@ class monthlyIncome{
                    String temp1 =expenses[j];
                    expenses[j]= expenses[j+1];
                   expenses[j+1]=temp1;
-                 System.out.println("j");
+                
                 
                 }
                
             }
+           }
          
-         }
              for( double x: me){
                  
                     System.out.println( "=R"+ x  );
@@ -170,12 +170,12 @@ class monthlyIncome{
            double  total_deposits =me5.nextDouble();
            System.out.println("Enter the  interest rate in decimal: ");
            double interest_rate = me5.nextDouble();
-           System.out.println("The number of  years to pay for the house (NB:years should be 20-30 years):");
+           System.out.println("The duration of repayment in months:");
             double number_of_years =me5.nextDouble();
            
            double p=price_of_property-total_deposits;
            
-             home_loan_repayments =(p*(interest_rate/n))/(1-(Math.pow(1+interest_rate/n, -n*number_of_years)));
+             home_loan_repayments =(p*((interest_rate/100)/n))/(1-(Math.pow(1+(interest_rate/100)/n, -number_of_years)));
              
              System.out.println("Your monthly repayments = R"+ home_loan_repayments );
            
@@ -197,11 +197,11 @@ class monthlyIncome{
     
     class vehicle extends   home_house {
      
-    double vehicle_monthly_repayment;
+    double vehicle_repayment;
       double total_expenses_including_vehicle_loan;
        double money_available_after_all_expenses;
         double total_expenses_without_vehicle_loan;
-      
+      double monthly;
 
      String choice2;
  
@@ -210,33 +210,34 @@ class monthlyIncome{
      System.out.println("Do your want to buy a vehicle(yes or no):");
       choice2= me3.nextLine();
 
-       if(choice2.equals("yes")){
+       if(choice2.equalsIgnoreCase("yes")){
            
             final int n=12;
-           final int number_ofyears=5;
            
-          System.out.println("Enter the type of car and the brand your want to buy:");
-           String  model_n_make =me5.nextLine();
+           
+          System.out.print("Enter the type of car and the brand your want to buy:");
+           String  model_n_make =me3.nextLine();
            
            System.out.println("Enter the car price purchase:");
-            double  Purchse_price= me5.nextDouble();
+            double  Purchse_price= me3.nextDouble();
             
             System.out.println("Enter the total deposits:");
-             double  total_deposits= me5.nextDouble();
+             double  total_deposits= me3.nextDouble();
              
              System.out.println("Enter the interest rate(percetage decimal form):");
-              double  interest_rate= me5.nextDouble();
+              double  rate= me3.nextDouble();
               
               System.out.println("Enter the estimated car insurance premium:");
-               double  estimated_insurance_premium=me5.nextDouble();
-       
+               double  estimated_insurance_premium=me3.nextDouble();
+        double interest_rate= rate/100;
             double P=Purchse_price-total_deposits;
            
-            vehicle_monthly_repayment=(P*(interest_rate/n))/(1-(Math.pow(1+interest_rate/n, -n*number_ofyears)));
+             vehicle_repayment=(P*(interest_rate/n))/(1-Math.pow(1+interest_rate/n, -n*5));
+             
            
-            System.out.println("Your monthly vehicle repaymenrts = R"  +vehicle_monthly_repayment );
+            System.out.println("Your monthly vehicle repayments = R"  +vehicle_repayment+ estimated_insurance_premium );
             
-            total_expenses_including_vehicle_loan = vehicle_monthly_repayment +  money_left_after_expenses_n_property +estimated_insurance_premium;
+            total_expenses_including_vehicle_loan =  vehicle_repayment+  money_left_after_expenses_n_property+estimated_insurance_premium ;
                    
         }
        
@@ -246,11 +247,10 @@ class monthlyIncome{
      
       if(choice==0 && choice2.equals("yes")){
           
-         total_expenses_including_vehicle_loan =   total_expense_for_rent_n_expenses+vehicle_monthly_repayment;
-         System.out.println("The total expenses  =  R" + total_expenses_including_vehicle_loan);
-         
+         total_expenses_including_vehicle_loan =   total_expense_for_rent_n_expenses+vehicle_repayment;
+       
                 if(total_expenses_including_vehicle_loan>getgross_monthlyIncome()*0.75){
-                    System.out.println("The total expenses excludes 75% of your income");
+                    System.out.println("The total expenses exceeds 75% of your income");
                 }
                 
           money_available_after_all_expenses  =  income_left_after_tax_ded - total_expenses_including_vehicle_loan;   
@@ -268,14 +268,14 @@ class monthlyIncome{
            System.out.println("The total money after all the expenses = R " +  money_available_after_all_expenses);
            
       }else if(choice==1 && choice2.equals("yes")){
-         total_expenses_including_vehicle_loan =   total_expenses_for_homeloan_n_expenses+vehicle_monthly_repayment;
-          System.out.println("The total expenses  =  R" + total_expenses_including_vehicle_loan);
+         total_expenses_including_vehicle_loan =   total_expenses_for_homeloan_n_expenses+ vehicle_repayment;
+          //System.out.println("The total expenses  =  R" + total_expenses_including_vehicle_loan);
           
            if(total_expenses_including_vehicle_loan>getgross_monthlyIncome()*0.75){
                     System.out.println("The total expenses excludes  75%  of  your income");
                 }
            
-           money_available_after_all_expenses=  income_left_after_tax_ded - total_expenses_including_vehicle_loan;
+           money_available_after_all_expenses=  income_left_after_tax_ded -total_expenses_including_vehicle_loan;
             System.out.println("The total money after all the expenses = R " +  money_available_after_all_expenses);
             
       }else if(choice==1 && choice2.equals("no")){
